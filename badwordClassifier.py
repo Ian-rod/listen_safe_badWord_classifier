@@ -69,6 +69,13 @@ loss,accuracy=model.evaluate(X_test,Y_test)
 print("Saving the model")
 with open("model.pkl", "wb") as f:
     pickle.dump(model, f)
+
+#save the vectorizer 
+print("Saving the vectorizer")
+with open("vectorizer.pkl", "wb") as f:
+    pickle.dump(vectorizer, f)
+
+
 #model summary
 model.summary()
 
