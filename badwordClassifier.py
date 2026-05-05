@@ -1,4 +1,6 @@
 #a model to classify bad words
+from io import StringIO
+
 import nltk
 import numpy as np
 import pandas as pd
@@ -8,6 +10,7 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 import pickle
+from datetime import datetime
 
 #Creating the data set
 dataset=pd.read_csv('TrainingData/Hate and offensive speech detection.csv',delimiter=',')
@@ -62,8 +65,6 @@ model.compile(
 print('training model')
 model.fit(X_train,Y_train,epochs=100)
 print('training model complete')
-#check loss and accuracy
-loss,accuracy=model.evaluate(X_test,Y_test)
 
 #save the model 
 print("Saving the model")
@@ -76,14 +77,22 @@ with open("vectorizer.pkl", "wb") as f:
     pickle.dump(vectorizer, f)
 
 
+#Create as markdown with the info
 #model summary
-model.summary()
+loss,accuracy=model.evaluate(X_test,Y_test)
+print("Creating report")
+currentdate=datetime.now()
 
-#test with your own data here
-sample_test=["My nigga"]
-sample_test=vectorizer.transform(sample_test).toarray()
+stream = StringIO()
+model.summary(print_fn=lambda x: stream.write(x + "\n"))
+summary_text = stream.getvalue()
 
-#use the model to predict the sentiment
-sentiment=model.predict(sample_test)[:,1]
+with open("modelDescription.md", "w", encoding="utf-8") as f:
+    f.write("# Model Report\n\n")
+    f.write('- Last run: ' +currentdate.strftime("%Y-%m-%d %H:%M:%S"))
+    f.write("```\n")
+    f.write(summary_text+"\n")
+    f.write(f"- Accuracy: {accuracy:.4f}\n")
+    f.write(f"- loss: {loss:.4f}\n")
+    f.write("\n```\n")
 
-print(sentiment)
