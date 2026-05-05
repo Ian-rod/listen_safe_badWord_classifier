@@ -7,6 +7,7 @@ from nltk.stem.porter import PorterStemmer #derive root form of words
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
+import pickle
 
 #Creating the data set
 dataset=pd.read_csv('TrainingData/Hate and offensive speech detection.csv',delimiter=',')
@@ -64,6 +65,10 @@ print('training model complete')
 #check loss and accuracy
 loss,accuracy=model.evaluate(X_test,Y_test)
 
+#save the model 
+print("Saving the model")
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
 #model summary
 model.summary()
 
