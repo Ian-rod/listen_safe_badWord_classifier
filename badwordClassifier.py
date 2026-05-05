@@ -20,7 +20,6 @@ ps=PorterStemmer()
 corpus=[]
 Y=[]
 print(dataset.info())
-print(len(dataset.iloc[:,1].values))
 print('Begining data set clean up')
 for i in range(0,dataset.last_valid_index()):
     tweet=re.sub('[^a-zA-Z]',' ',dataset['tweet'][i]) #remove dots and exlamation marks 
