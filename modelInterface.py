@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 import re
 from nltk.corpus import stopwords
-from nltk.stem.porter import PorterStemmer
+from nltk.stem.snowball import SnowballStemmer
 import numpy as np
 from sklearn.model_selection import train_test_split
 from datetime import datetime
@@ -31,7 +31,7 @@ def model_summary():
 #data should be in the form of data,label
 def re_train_model():
     csvpath=input("Enter the CSV path: ")
-    ps=PorterStemmer()
+    sbs=SnowballStemmer(language='english')
     corpus=[]
     Y=[]
     dataset=pd.read_csv(csvpath,delimiter=',')
@@ -44,7 +44,7 @@ def re_train_model():
         data=data.lower()
         data=data.split() #split the sentence on space to get the words
         #Applying stemming
-        clean_data=[ps.stem(word) for word in data if not word in set(stopwords.words('english'))]
+        clean_data=[sbs.stem(word) for word in data if not word in set(stopwords.words('english'))]
         #concat to get the sentence
         clean_data=' '.join(clean_data)
         corpus.append(clean_data)
