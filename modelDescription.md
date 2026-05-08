@@ -1,6 +1,6 @@
 # Model Report
 
-- Last run: 2026-05-05 22:48:53```
+- Last run: 2026-05-08 08:44:03```
 Model: "sequential"
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
 ┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
@@ -17,7 +17,7 @@ Model: "sequential"
  Optimizer params: 2,004,006 (7.64 MB)
 
 
-- Accuracy: 0.8085
-- loss: 0.8216
+- Accuracy: 0.9201
+- loss: 1.3159
 
 ```
