@@ -40,7 +40,8 @@ def re_train_model():
     #pre processing data
     print('Begining data set clean up')
     for i in range(0,dataset.last_valid_index()):
-        data=re.sub('[^a-zA-Z]',' ',dataset['data'][i]) #remove dots and exlamation marks 
+        data=str(dataset['data'][i])
+        data=re.sub('[^a-zA-Z]',' ',data) #remove dots and exlamation marks 
         data=data.lower()
         data=data.split() #split the sentence on space to get the words
         #Applying stemming
