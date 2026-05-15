@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 import re
 from nltk.corpus import stopwords
-from nltk.stem.snowball import SnowballStemmer
+from nltk.stem.snowball import PorterStemmer, SnowballStemmer
 import numpy as np
 from sklearn.model_selection import train_test_split
 from datetime import datetime
@@ -27,6 +27,19 @@ vectorizer=load_vectorizer()
 
 def model_summary():
     print(model.summary())
+
+#the main predictive method
+def predict(rawTextInput)->int:
+    ps=PorterStemmer()
+    rawTextInput=re.sub('[^a-zA-Z]',' ',rawTextInput)# remove non char
+    rawTextInput=rawTextInput.lower()
+    rawTextInput=rawTextInput.split() 
+    cleanRawTextInput=[ps.stem(word) for word in rawTextInput if not word in set(stopwords.words('english'))]
+    cleanRawTextInput=' '.join(cleanRawTextInput)
+    cleanRawTextInput=vectorizer.transform([cleanRawTextInput]).toarray()
+    sentiment=model.predict(cleanRawTextInput)[:,1]
+    return sentiment
+
 
 #data should be in the form of data,label
 def re_train_model():
@@ -100,10 +113,7 @@ while 1:
     match int(user_command):
         case 1:
             test_data=input("Enter test statement: ")
-            test_data=vectorizer.transform([test_data]).toarray()
-            #use the model to predict the sentiment
-            sentiment=model.predict(test_data)[:,1]
-            print("The chances of this being a bad word is "+str(sentiment)+'\n')
+            print("The chances of this being a bad word is "+str(predict(test_data))+'\n')
         case 2:
             re_train_model()
         case 3:
