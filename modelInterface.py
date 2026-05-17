@@ -9,6 +9,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from datetime import datetime
 from io import StringIO
+from inscriptis import get_text
 
 
 #load the ml model
@@ -40,6 +41,10 @@ def predict(rawTextInput)->int:
     sentiment=model.predict(cleanRawTextInput)[:,1]
     return sentiment
 
+#text to filter from HTML
+def predict_Html(rawHtmlInput)->int:
+    html_text=get_text(rawHtmlInput)
+    return predict(html_text)
 
 #data should be in the form of data,label
 def re_train_model():
@@ -118,3 +123,6 @@ while 1:
             re_train_model()
         case 3:
             model_summary()
+        case 4:
+            HtmlFile = open("html_test/clean_lyrics.html",'r')
+            print(predict_Html(HtmlFile.read()))
