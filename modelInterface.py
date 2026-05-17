@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import pandas as pd
 import re
 from nltk.corpus import stopwords
-from nltk.stem.snowball import PorterStemmer, SnowballStemmer
+from nltk.stem.snowball import SnowballStemmer
 import numpy as np
 from sklearn.model_selection import train_test_split
 from datetime import datetime
@@ -31,13 +31,9 @@ def model_summary():
 
 #the main predictive method
 def predict(rawTextInput)->int:
-    ps=PorterStemmer()
     rawTextInput=re.sub('[^a-zA-Z]',' ',rawTextInput)# remove non char
     rawTextInput=rawTextInput.lower()
-    rawTextInput=rawTextInput.split() 
-    cleanRawTextInput=[ps.stem(word) for word in rawTextInput if not word in set(stopwords.words('english'))]
-    cleanRawTextInput=' '.join(cleanRawTextInput)
-    cleanRawTextInput=vectorizer.transform([cleanRawTextInput]).toarray()
+    cleanRawTextInput=vectorizer.transform([rawTextInput]).toarray()
     sentiment=model.predict(cleanRawTextInput)[:,1]
     return sentiment
 
