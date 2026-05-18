@@ -11,21 +11,22 @@ from datetime import datetime
 from io import StringIO
 from inscriptis import get_text
 
-# since these are prerequisites for the class
-#load the ml model
-
-def load_model(self) -> tf.keras.Model:
-    with open("model.pkl", "rb") as f:
-        return pickle.load(f)
-
-#load the vectorizer
-def load_vectorizer(self) -> TfidfVectorizer:
-    with open("vectorizer.pkl", "rb") as f:
-        return pickle.load(f)
     
 class ModelInterface:
-    model=load_model()
-    vectorizer=load_vectorizer()
+    # since these are prerequisites for the class
+    #load the ml model
+    def __init__(self):
+        self.model = self.load_model()
+        self.vectorizer=self.load_vectorizer()
+
+    def load_model(self) -> tf.keras.Model:
+        with open("model.pkl", "rb") as f:
+            return pickle.load(f)
+
+    #load the vectorizer
+    def load_vectorizer(self) -> TfidfVectorizer:
+        with open("vectorizer.pkl", "rb") as f:
+            return pickle.load(f)
 
     #call method to load  model and vectorizer
     def model_summary(self):
