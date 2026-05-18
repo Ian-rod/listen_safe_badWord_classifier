@@ -117,7 +117,7 @@ class ModelInterface:
             match int(user_command):
                 case 1:
                     test_data=input("Enter test statement: ")
-                    print("The chances of this being a bad word is "+str(predict(test_data))+'\n')
+                    print("The chances of this being a bad word is "+str(self.predict(test_data))+'\n')
                 case 2:
                     self.re_train_model()
                 case 3:
