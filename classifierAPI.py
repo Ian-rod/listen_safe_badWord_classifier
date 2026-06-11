@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from modelInterface import ModelInterface
-
+from fastapi import Body
 #fast api object declaration
 app = FastAPI()
 modelInterface=ModelInterface()
@@ -8,11 +8,11 @@ modelInterface=ModelInterface()
 
 # expose methods through the class instance
 @app.post("/predict")
-def predict(txt:str):
-    return str(modelInterface.predict(txt)[0])
+async def predict(text: str = Body(...)):
+    return str(modelInterface.predict(text)[0])
 
 @app.post("/predictHTML")
-def predict_HTML(html):
+def predict_HTML(html:str = Body(...)):
     return str(modelInterface.predict(html)[0])
 @app.get("/summary")
 def model_summary()->str:
