@@ -8,13 +8,12 @@ modelInterface=ModelInterface()
 
 # expose methods through the class instance
 @app.post("/predict")
-def predict(txt)->int:
-    return modelInterface.predict(txt)
+def predict(txt:str):
+    return str(modelInterface.predict(txt)[0])
 
 @app.post("/predictHTML")
-def predict_HTML(html)->int:
-    return modelInterface.predict(html)
-
+def predict_HTML(html):
+    return str(modelInterface.predict(html)[0])
 @app.get("/summary")
 def model_summary()->str:
     modelInterface.model_summary()

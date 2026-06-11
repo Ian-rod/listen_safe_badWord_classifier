@@ -33,7 +33,7 @@ class ModelInterface:
         print(self.model.summary())
 
     #the main predictive method
-    def predict(rawTextInput,self)->int:
+    def predict(self,rawTextInput)->int:
         rawTextInput=re.sub('[^a-zA-Z]',' ',rawTextInput)# remove non char
         rawTextInput=rawTextInput.lower()
         cleanRawTextInput=self.vectorizer.transform([rawTextInput]).toarray()
@@ -41,7 +41,7 @@ class ModelInterface:
         return sentiment
 
     #text to filter from HTML
-    def predict_Html(rawHtmlInput,self)->int:
+    def predict_Html(self,rawHtmlInput)->int:
         html_text=get_text(rawHtmlInput)
         return self.predict(html_text)
 
