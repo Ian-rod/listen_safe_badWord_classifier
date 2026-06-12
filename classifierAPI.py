@@ -9,11 +9,11 @@ modelInterface=ModelInterface()
 # expose methods through the class instance
 @app.post("/predict")
 async def predict(text: str = Body(...)):
-    return str(modelInterface.predict(text)[0])
+    return float(modelInterface.predict(text)[0])
 
 @app.post("/predictHTML")
 def predict_HTML(html:str = Body(...)):
-    return str(modelInterface.predict(html)[0])
+    return float(modelInterface.predict(html))
 @app.get("/summary")
 def model_summary()->str:
     modelInterface.model_summary()

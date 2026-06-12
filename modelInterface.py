@@ -33,7 +33,7 @@ class ModelInterface:
         print(self.model.summary())
 
     #the main predictive method
-    def predict(self,rawTextInput)->int:
+    def predict(self,rawTextInput)->float:
         rawTextInput=re.sub('[^a-zA-Z]',' ',rawTextInput)# remove non char
         rawTextInput=rawTextInput.lower()
         cleanRawTextInput=self.vectorizer.transform([rawTextInput]).toarray()
