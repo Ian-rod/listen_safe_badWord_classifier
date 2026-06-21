@@ -41,10 +41,9 @@ class ModelInterface:
         return sentiment
 
     #text to filter from HTML
-    def predict_Html(self,rawHtmlInput)->int:
+    def predict_Html(self,rawHtmlInput)->float:
         html_text=get_text(rawHtmlInput)
-        clean_data=self.clean_txt(html_text)
-        return self.predict(clean_data)
+        return self.predict(html_text)
 
     def clean_txt(self,txt)->str:
         txt=re.sub('[^a-zA-Z]',' ',txt) #remove dots and exlamation marks 
