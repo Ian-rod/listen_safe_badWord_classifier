@@ -13,7 +13,7 @@ async def predict(text: str = Body(...)):
 
 @app.post("/predictHTML")
 def predict_HTML(html:str = Body(...)):
-    return float(modelInterface.predict(html)[0])
+    return float(modelInterface.predict_Html(html)[0])
 @app.get("/summary")
 def model_summary()->str:
     modelInterface.model_summary()

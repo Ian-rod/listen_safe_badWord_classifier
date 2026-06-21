@@ -43,9 +43,10 @@ class ModelInterface:
     #text to filter from HTML
     def predict_Html(self,rawHtmlInput)->int:
         html_text=get_text(rawHtmlInput)
-        return self.predict(html_text)
+        clean_data=self.clean_txt(html_text)
+        return self.predict(clean_data)
 
-    def clean_txt(self,txt):
+    def clean_txt(self,txt)->str:
         txt=re.sub('[^a-zA-Z]',' ',txt) #remove dots and exlamation marks 
         txt=txt.lower()
         txt=txt.split() #split the sentence on space to get the words
