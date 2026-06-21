@@ -18,7 +18,7 @@ class ModelInterface:
     def __init__(self):
         self.model = self.load_model()
         self.vectorizer=self.load_vectorizer()
-
+        self.sbs=SnowballStemmer(language='english')
     def load_model(self) -> tf.keras.Model:
         with open("model.pkl", "rb") as f:
             return pickle.load(f)
@@ -45,10 +45,19 @@ class ModelInterface:
         html_text=get_text(rawHtmlInput)
         return self.predict(html_text)
 
+    def clean_txt(self,txt):
+        txt=re.sub('[^a-zA-Z]',' ',txt) #remove dots and exlamation marks 
+        txt=txt.lower()
+        txt=txt.split() #split the sentence on space to get the words
+        #Applying stemming
+        clean_txt_data=[self.sbs.stem(word) for word in txt if not word in set(stopwords.words('english'))]
+        #concat to get the sentence
+        clean_txt_data=' '.join(clean_txt_data)
+        return clean_txt_data
+
     #data should be in the form of data,label
     def re_train_model(self):
         csvpath=input("Enter the CSV path: ")
-        sbs=SnowballStemmer(language='english')
         corpus=[]
         Y=[]
         dataset=pd.read_csv(csvpath,delimiter=',')
@@ -57,15 +66,7 @@ class ModelInterface:
         #pre processing data
         print('Begining data set clean up')
         for i in range(0,dataset.last_valid_index()):
-            data=str(dataset['data'][i])
-            data=re.sub('[^a-zA-Z]',' ',data) #remove dots and exlamation marks 
-            data=data.lower()
-            data=data.split() #split the sentence on space to get the words
-            #Applying stemming
-            clean_data=[sbs.stem(word) for word in data if not word in set(stopwords.words('english'))]
-            #concat to get the sentence
-            clean_data=' '.join(clean_data)
-            corpus.append(clean_data)
+            corpus.append(self.clean_txt(dataset['data'][i]))
             Y.append(dataset['label'][i])
             print('Procressing row '+ str(i))
         print('Data set clean up complete')
