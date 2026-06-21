@@ -38,6 +38,8 @@ class ModelInterface:
         rawTextInput=rawTextInput.lower()
         cleanRawTextInput=self.vectorizer.transform([rawTextInput]).toarray()
         sentiment=self.model.predict(cleanRawTextInput)[:,1]
+        print("sentiment value is ")
+        print(sentiment)
         return sentiment
 
     #text to filter from HTML
