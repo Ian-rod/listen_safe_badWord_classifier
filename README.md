@@ -1,7 +1,8 @@
 # Model Report
 
-- Last run: 2026-05-08 08:44:03```
-Model: "sequential"
+**Last run:** `2026-05-08 08:44:03`
+#### Model: "sequential"
+```text
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┓
 ┃ Layer (type)                         ┃ Output Shape                ┃         Param # ┃
 ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━┩
@@ -11,13 +12,14 @@ Model: "sequential"
 ├──────────────────────────────────────┼─────────────────────────────┼─────────────────┤
 │ dense_2 (Dense)                      │ (None, 2)                   │           1,002 │
 └──────────────────────────────────────┴─────────────────────────────┴─────────────────┘
- Total params: 3,006,008 (11.47 MB)
- Trainable params: 1,002,002 (3.82 MB)
- Non-trainable params: 0 (0.00 B)
- Optimizer params: 2,004,006 (7.64 MB)
+```
+#### Model Parameters
+ - Total params: 3,006,008 (11.47 MB)
+ - Trainable params: 1,002,002 (3.82 MB)
+ - Non-trainable params: 0 (0.00 B)
+ - Optimizer params: 2,004,006 (7.64 MB)
 
-
+#### Evaluation Metrics
 - Accuracy: 0.9201
 - loss: 1.3159
 
-```
